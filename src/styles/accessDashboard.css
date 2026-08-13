@@ -1,56 +1,63 @@
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap");
 
-:root {
-  /* ===== LIGHT THEME TOKENS ===== */
-  --bg: #f6f9fc;
-  --surface: #ffffff;
-  --surface-hover: #f0f5fa;
-  --border: #e2e8f0;
-
-  --text-primary: #0a2c20;
-  --text-secondary: #475569;
-  --text-muted: #94a3b8;
-
-  --green: #10b981;
-  --green-dark: #0a5c36;
-  --green-light: #d1fae5;
-
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 18px 48px rgba(0, 0, 0, 0.08);
-
-  --radius: 20px;
-  --radius-sm: 12px;
-}
-
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
+:root {
+  --bg: #f6f9fc;
+  --surface: #ffffff;
+  --surface-hover: #f0f5fa;
+  --border: #e2e8f0;
+  --text-primary: #0a2c20;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+  --green: #10b981;
+  --green-dark: #0a5c36;
+  --green-light: #d1fae5;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 18px 48px rgba(0, 0, 0, 0.08);
+  --radius: 20px;
+  --radius-sm: 12px;
+  --font: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+  font-family: var(--font);
+}
+
 .ad-page {
   min-height: 100vh;
   padding: 16px;
-  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
   background: var(--bg);
+  display: flex;
+  flex-direction: column;
 }
 
-/* remove heavy backgrounds */
+/* Remove heavy background layers */
 .bg-layer,
 .grid-layer,
 .blob {
-  display: none;
+  display: none !important;
 }
 
-/* =========================
-   SHELL
-   ========================= */
 .ad-shell {
   max-width: 1280px;
   margin: 0 auto;
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
+/* ===== LOADING ===== */
 .ad-loading {
   display: flex;
   align-items: center;
@@ -58,23 +65,23 @@
   height: 420px;
   font-weight: 800;
   color: var(--text-secondary);
+  font-size: 1.2rem;
 }
 
-/* =========================
-   HEADER – FULLY STACKABLE
-   ========================= */
+/* ===== HEADER ===== */
 .ad-header {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
   gap: 16px;
-  padding: 16px 20px;
   background: var(--surface);
+  padding: 16px 20px;
   border-radius: var(--radius);
   border: 1px solid var(--border);
   box-shadow: var(--shadow-sm);
   margin-bottom: 20px;
+  width: 100%;
 }
 
 .ad-brand {
@@ -137,12 +144,13 @@
   line-height: 1.2;
 }
 
-/* ===== HEADER ACTIONS (STACK ON MOBILE) ===== */
+/* ===== HEADER ACTIONS ===== */
 .ad-actions {
   display: flex;
   align-items: center;
   gap: 10px;
   flex-wrap: wrap;
+  flex: 0 1 auto;
 }
 
 .role-badge {
@@ -207,9 +215,7 @@
   background: var(--surface-hover);
 }
 
-/* =========================
-   SYSTEM STATUS BANNER
-   ========================= */
+/* ===== STATUS BANNER ===== */
 .ad-status-banner {
   display: flex;
   align-items: center;
@@ -220,6 +226,7 @@
   border-radius: var(--radius-sm);
   border-left: 4px solid var(--green);
   margin-bottom: 18px;
+  width: 100%;
 }
 .ad-status-banner .status-icon {
   font-size: 18px;
@@ -234,9 +241,26 @@
   margin-left: 4px;
 }
 
-/* =========================
-   ACCESS SYSTEM HEADING
-   ========================= */
+/* ===== PLAIN LINE ===== */
+.ad-plainLine {
+  margin-bottom: 16px;
+}
+.ad-plainStatus {
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+.ad-plainStrong {
+  font-weight: 900;
+  color: var(--text-primary);
+}
+.ad-plainHelp {
+  margin-top: 4px;
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* ===== ACCESS HEADING ===== */
 .ad-access-heading {
   margin: 0 0 16px 0;
   font-size: 22px;
@@ -244,13 +268,12 @@
   color: var(--text-primary);
 }
 
-/* =========================
-   PROGRAM CARDS – 1 COLUMN ON MOBILE
-   ========================= */
+/* ===== CARDS GRID ===== */
 .ad-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 18px;
+  width: 100%;
 }
 
 .ad-card {
@@ -264,13 +287,11 @@
   transition: all 0.2s ease;
   min-height: 0;
 }
-
 .ad-card:hover {
   box-shadow: var(--shadow-md);
   border-color: #cbd5e1;
   transform: translateY(-2px);
 }
-
 .ad-card.disabled {
   opacity: 0.6;
   filter: grayscale(0.3);
@@ -283,7 +304,6 @@
   align-items: flex-start;
   margin-bottom: 12px;
 }
-
 .ad-icon {
   width: 48px;
   height: 48px;
@@ -295,12 +315,10 @@
   font-size: 28px;
   flex: 0 0 auto;
 }
-
 .ad-card-head {
   flex: 1;
   min-width: 0;
 }
-
 .ad-code {
   font-size: 10px;
   font-weight: 800;
@@ -308,7 +326,6 @@
   letter-spacing: 0.1em;
   color: var(--text-muted);
 }
-
 .ad-card-title {
   margin: 4px 0 6px;
   font-size: 17px;
@@ -316,14 +333,12 @@
   color: var(--text-primary);
   line-height: 1.25;
 }
-
 .ad-card-sub {
   color: var(--text-secondary);
   font-weight: 600;
   font-size: 13px;
   line-height: 1.4;
 }
-
 .ad-disabledTag {
   margin-top: 8px;
   display: inline-block;
@@ -345,7 +360,6 @@
   gap: 6px;
   flex: 1;
 }
-
 .ad-list li {
   display: flex;
   align-items: flex-start;
@@ -370,7 +384,6 @@
   padding-top: 14px;
   border-top: 1px solid var(--border);
 }
-
 .ad-open {
   width: 100%;
   display: flex;
@@ -386,7 +399,7 @@
   font-size: 14px;
   cursor: pointer;
   transition: all 0.15s ease;
-  min-height: 48px; /* touch-friendly */
+  min-height: 48px;
 }
 .ad-open:hover:not(:disabled) {
   background: var(--green-dark);
@@ -402,9 +415,7 @@
   transform: none;
 }
 
-/* =========================
-   NOTE & FOOTER
-   ========================= */
+/* ===== NOTE ===== */
 .ad-note {
   margin-top: 20px;
   padding: 14px 16px;
@@ -415,24 +426,33 @@
   font-weight: 600;
   font-size: 14px;
   box-shadow: var(--shadow-sm);
+  width: 100%;
 }
 
+/* ===== FOOTER – FULLY STACKED ON MOBILE ===== */
 .ad-footer {
   margin-top: 24px;
   padding: 16px 0 8px;
   border-top: 1px solid var(--border);
   display: flex;
   justify-content: space-between;
+  align-items: center;
   flex-wrap: wrap;
   gap: 12px;
   color: var(--text-muted);
   font-weight: 600;
   font-size: 13px;
+  width: 100%;
+}
+.ad-footer-left,
+.ad-footer-right {
+  flex: 0 1 auto;
+}
+.ad-footer-right {
+  text-align: right;
 }
 
-/* =========================
-   TOAST
-   ========================= */
+/* ===== TOAST ===== */
 .ad-warnToast {
   position: fixed;
   bottom: 20px;
@@ -449,7 +469,6 @@
   box-shadow: var(--shadow-md);
   animation: slideIn 0.2s ease;
 }
-
 @keyframes slideIn {
   from {
     transform: translateY(12px);
@@ -461,9 +480,7 @@
   }
 }
 
-/* =========================
-   MODAL – FULL WIDTH ON MOBILE
-   ========================= */
+/* ===== MODAL ===== */
 .admWrap {
   position: fixed;
   inset: 0;
@@ -472,14 +489,12 @@
   place-items: center;
   padding: 16px;
 }
-
 .admOverlay {
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.35);
   backdrop-filter: blur(4px);
 }
-
 .admCard {
   position: relative;
   width: min(440px, 94vw);
@@ -488,7 +503,6 @@
   box-shadow: var(--shadow-lg);
   overflow: hidden;
 }
-
 .admHead {
   padding: 14px 18px;
   border-bottom: 1px solid var(--border);
@@ -510,16 +524,13 @@
   cursor: pointer;
   display: grid;
   place-items: center;
-  transition: background 0.15s;
 }
 .admX:hover {
   background: var(--surface-hover);
 }
-
 .admBody {
   padding: 18px;
 }
-
 .admCenter {
   text-align: center;
 }
@@ -613,6 +624,7 @@
     white-space: nowrap;
     font-size: 12px;
     padding: 6px 12px;
+    min-height: 40px;
   }
 
   .ad-cards {
@@ -716,6 +728,12 @@
     align-items: center;
     text-align: center;
     font-size: 12px;
+  }
+  .ad-footer-left,
+  .ad-footer-right {
+    flex: 1 1 auto;
+    text-align: center;
+    width: 100%;
   }
 
   .ad-warnToast {
