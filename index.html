@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <!-- Icons -->
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/appletouchicon.png" />
+
+    <!-- Mobile / PWA behavior -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <!-- iOS "app-like" behavior -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="ANIMIS" />
+
+    <title>ANIMIS • Naujan</title>
+
+    <!-- Loader styling (modern + fade-out) -->
+    <style>
+      :root{
+        --bg:#ffffff;
+        --ink:#0f172a;
+        --muted:#64748b;
+        --ring:rgba(15,23,42,.14);
+      }
+      html,body{ height:100%; }
+      body{
+        margin:0;
+        background:var(--bg);
+        font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      }
+
+      /* Loader overlay */
+      #boot{
+        position:fixed;
+        inset:0;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        background:var(--bg);
+        z-index:9999;
+        opacity:1;
+        transform: translateY(0);
+        transition: opacity .45s ease, transform .45s ease;      }
+      #boot.fade-out{
+        opacity:0;
+        transform: translateY(6px);
+        pointer-events:none;
+      }
+
+      .boot-card{
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        gap:14px;
+        padding:22px 20px;
+      }
+
+      /* Logo - smaller and full */
+      .boot-logo{
+        width:84px;
+        height:84px;
+        object-fit:contain;
+      }
+
+      /* Modern spinner */
+      .orbit{
+        width:44px;
+        height:44px;
+        border-radius:999px;
+        border:3px solid var(--ring);
+        border-top-color: var(--ink);
+        animation: spin .8s linear infinite;
+      }
+      @keyframes spin { to { transform: rotate(360deg);} }
+
+      .boot-text{
+        font-size:13px;
+        color:var(--muted);
+        letter-spacing:.2px;
+      }
+
+      /* safe area for iPhone notch/home bar */
+      .safe-pad{
+        padding-bottom: env(safe-area-inset-bottom);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="root"></div>
+
+    <!-- Loader overlay -->
+    <div id="boot" class="safe-pad" aria-label="Loading">
+      <div class="boot-card">
+        <img class="boot-logo" src="/icons/icon192.png" alt="ANIMIS" />
+        <div class="orbit" role="progressbar" aria-label="Loading"></div>
+        <div class="boot-text">Loading ANIMIS…</div>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.jsx"></script>
+
+    <!-- Fade-out loader once React is mounted -->
+   <script>
+  // Minimum time to show loader (ms)
+  const BOOT_MIN_MS = 900;
+  const bootStart = Date.now();
+
+  window.addEventListener("animis:mounted", () => {
+    const boot = document.getElementById("boot");
+    if (!boot) return;
+
+    const elapsed = Date.now() - bootStart;
+    const wait = Math.max(0, BOOT_MIN_MS - elapsed);
+
+    setTimeout(() => {
+      boot.classList.add("fade-out");
+      setTimeout(() => boot.remove(), 450);
+    }, wait);
+  });
+</script>
+
+  </body>
+</html>

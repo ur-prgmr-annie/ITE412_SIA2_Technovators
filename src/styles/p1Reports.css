@@ -1,0 +1,550 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+.p1p-font{
+  font-family: "Plus Jakarta Sans", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.p1p{
+  width: 100%;
+  padding: 18px;
+  min-height: calc(100vh - 120px);
+  background:
+    radial-gradient(1200px 520px at 10% 10%, rgba(44,255,177,0.12), transparent 60%),
+    radial-gradient(900px 420px at 90% 35%, rgba(34,197,94,0.10), transparent 55%),
+    linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  font-family: "Plus Jakarta Sans", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  border-radius: 18px;
+}
+
+/* Header */
+.p1p-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 14px 14px 12px;
+  border: 1px solid rgba(15, 23, 42, 0.10);
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.06);
+}
+
+.p1p-h1{
+  font-size: 24px;
+  font-weight: 950;
+  color: #0f172a;
+}
+.p1p-sub{
+  margin-top: 6px;
+  color: #64748b;
+  font-weight: 800;
+  font-size: 13px;
+}
+
+.p1p-headRight{
+  display:flex;
+  gap: 10px;
+  align-items:center;
+}
+
+.p1p-primary{
+  display:inline-flex;
+  align-items:center;
+  gap: 10px;
+  border: 1px solid rgba(44,255,177,0.25);
+  background: linear-gradient(135deg, rgba(44,255,177,0.95), rgba(52,211,153,0.90));
+  color: #062017;
+  font-weight: 950;
+  border-radius: 16px;
+  padding: 10px 12px;
+  cursor:pointer;
+  box-shadow: 0 18px 50px rgba(44,255,177,0.18);
+}
+.p1p-primary:hover{ filter: brightness(1.03); transform: translateY(-1px); }
+.p1p-primary:active{ transform: translateY(0); }
+
+.p1p-ghost{
+  display:inline-flex;
+  align-items:center;
+  gap: 10px;
+  border: 1px solid rgba(15,23,42,0.10);
+  background: #f8fafc;
+  color: #0f172a;
+  font-weight: 950;
+  border-radius: 16px;
+  padding: 10px 12px;
+  cursor:pointer;
+}
+.p1p-ghost:hover{ background:#ffffff; }
+
+.p1p-error{
+  margin: 12px 0 0;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 120, 120, 0.35);
+  background: rgba(255, 120, 120, 0.10);
+  color: #7f1d1d;
+  font-weight: 900;
+}
+
+/* Tabs */
+.p1p-tabs{
+  margin-top: 12px;
+  display:flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.p1p-tab{
+  display:inline-flex;
+  align-items:center;
+  gap: 8px;
+  border-radius: 999px;
+  padding: 10px 12px;
+  border: 1px solid rgba(15,23,42,0.10);
+  background: #ffffff;
+  font-weight: 950;
+  cursor:pointer;
+  color:#0f172a;
+}
+.p1p-tab:hover{ background:#f8fafc; }
+.p1p-tab.active{
+  border-color: rgba(44,255,177,0.35);
+  background: rgba(44,255,177,0.12);
+  color: #065f46;
+}
+
+/* Controls */
+.p1p-controls{
+  margin-top: 12px;
+  display:flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.p1p-date{
+  display:flex;
+  gap: 10px;
+  align-items:flex-start;
+  border: 1px solid rgba(15,23,42,0.10);
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 12px;
+  box-shadow: 0 18px 50px rgba(15,23,42,0.04);
+}
+
+.p1p-dateGrid{
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  min-width: min(520px, 100%);
+}
+
+.p1p-date label{
+  display:block;
+  font-size: 12px;
+  letter-spacing: .10em;
+  text-transform: uppercase;
+  color: #64748b;
+  font-weight: 950;
+  margin-bottom: 8px;
+}
+
+.p1p-date input{
+  width:100%;
+  border-radius: 16px;
+  border: 1px solid rgba(15,23,42,0.10);
+  background: #f8fafc;
+  padding: 10px 12px;
+  font-weight: 900;
+  color:#0f172a;
+  outline:none;
+}
+.p1p-date input:focus{
+  background:#ffffff;
+  border-color: rgba(44,255,177,0.45);
+  box-shadow: 0 0 0 3px rgba(44,255,177,0.14);
+}
+
+.p1p-hint{
+  color:#64748b;
+  font-weight: 900;
+  font-size: 12px;
+}
+
+/* KPI grid */
+.p1p-kpiGrid{
+  margin-top: 12px;
+  display:grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.p1p-kpi{
+  border: 1px solid rgba(15,23,42,0.10);
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 18px 50px rgba(15,23,42,0.06);
+  padding: 14px;
+  position: relative;
+  overflow:hidden;
+}
+.p1p-kpi::before{
+  content:"";
+  position:absolute;
+  top:0; left:0; right:0;
+  height: 3px;
+  background: linear-gradient(90deg, rgba(44,255,177,0.95), rgba(52,211,153,0.90));
+}
+
+.p1p-k{
+  font-size: 12px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  font-weight: 950;
+  color: #64748b;
+}
+.p1p-v{
+  margin-top: 8px;
+  font-size: 24px;
+  font-weight: 950;
+  color:#0f172a;
+}
+.p1p-s{
+  margin-top: 6px;
+  color:#64748b;
+  font-weight: 800;
+  font-size: 12px;
+}
+
+/* Layout */
+.p1p-layout{
+  margin-top: 12px;
+  display:grid;
+  grid-template-columns: 1.4fr .6fr;
+  gap: 12px;
+}
+
+.p1p-side{
+  display:flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.p1p-card{
+  border: 1px solid rgba(15,23,42,0.10);
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 18px 50px rgba(15,23,42,0.06);
+  padding: 12px;
+}
+
+.p1p-cardHead{
+  display:flex;
+  align-items:flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.p1p-title{
+  font-weight: 950;
+  color:#0f172a;
+}
+.p1p-muted{
+  margin-top: 6px;
+  color:#64748b;
+  font-weight: 800;
+  font-size: 12px;
+}
+
+/* Legend */
+.p1p-legend{
+  display:flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items:center;
+  justify-content:flex-end;
+}
+.p1p-legItem{
+  display:flex;
+  gap: 8px;
+  align-items:center;
+  font-weight: 900;
+  font-size: 12px;
+  color:#334155;
+}
+.p1p-legDot{
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  border: 2px solid #ffffff;
+  box-shadow: 0 8px 16px rgba(15,23,42,0.12);
+}
+.p1p-legDot.forest{ background:#10b981; }
+.p1p-legDot.mint{ background:#34d399; }
+.p1p-legDot.teal{ background:#14b8a6; }
+
+/* Chart */
+.p1p-chartWrap{
+  width:100%;
+  overflow:hidden;
+  border-radius: 16px;
+  border: 1px solid rgba(15,23,42,0.10);
+  background: #ffffff;
+}
+
+.p1p-chart{
+  width:100%;
+  height: 320px;
+  display:block;
+}
+
+.p1p-grid{
+  stroke: rgba(15,23,42,0.10);
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+}
+.p1p-axis{
+  stroke: rgba(100,116,139,0.8);
+  stroke-width: 1.2;
+}
+.p1p-ytext,.p1p-xtext{
+  fill: #64748b;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.p1p-line{
+  fill:none;
+  stroke-width: 2.4;
+}
+.p1p-line.forest{ stroke:#10b981; }
+.p1p-line.mint{ stroke:#34d399; }
+.p1p-line.teal{ stroke:#14b8a6; }
+
+.p1p-dot{
+  stroke:#ffffff;
+  stroke-width: 2;
+}
+.p1p-dot.forest{ fill:#10b981; }
+.p1p-dot.mint{ fill:#34d399; }
+.p1p-dot.teal{ fill:#14b8a6; }
+
+/* Bars */
+.p1p-bars{
+  margin-top: 10px;
+  display:flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.p1p-barRow{
+  display:flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.p1p-barLeft{
+  display:flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items:center;
+}
+
+.p1p-barLabel{
+  font-weight: 950;
+  color:#0f172a;
+  font-size: 13px;
+}
+.p1p-barMeta{
+  font-weight: 950;
+  color:#065f46;
+  font-size: 12px;
+}
+
+.p1p-barTrack{
+  height: 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(15,23,42,0.10);
+  background: #f8fafc;
+  overflow:hidden;
+}
+
+.p1p-barFill{
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(44,255,177,0.95), rgba(52,211,153,0.90));
+}
+
+/* Tables */
+.p1p-grid2{
+  margin-top: 12px;
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.p1p-table{
+  width:100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  border: 1px solid rgba(15,23,42,0.10);
+  border-radius: 18px;
+  overflow:hidden;
+}
+
+.p1p-table thead th{
+  text-align:left;
+  padding: 12px;
+  font-size: 12px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  font-weight: 950;
+  color: #64748b;
+  background: #f8fafc;
+  border-bottom: 1px solid rgba(15,23,42,0.08);
+}
+
+.p1p-table tbody td{
+  padding: 12px;
+  border-bottom: 1px solid rgba(15,23,42,0.06);
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.p1p-table tbody tr:hover td{
+  background: rgba(44,255,177,0.06);
+}
+
+.p1p-empty{
+  padding: 16px 12px;
+  text-align:center;
+  color:#64748b;
+  font-weight: 900;
+}
+
+.p1p-note{
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: #ffffff;
+  border: 1px solid rgba(15,23,42,0.10);
+  color:#64748b;
+  font-weight: 800;
+}
+
+/* Responsive */
+@media (max-width: 1100px){
+  .p1p-layout{ grid-template-columns: 1fr; }
+  .p1p-kpiGrid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .p1p-dateGrid{ grid-template-columns: 1fr; min-width: unset; }
+}
+@media (max-width: 640px){
+  .p1p{ padding: 12px; }
+  .p1p-kpiGrid{ grid-template-columns: 1fr; }
+  .p1p-grid2{ grid-template-columns: 1fr; }
+  .p1p-chart{ height: 260px; }
+}
+/* =========================================================
+   OVERRIDES — FORCE MATCH TO OVERVIEW (p1o)
+   Paste THIS at the VERY BOTTOM of p1Pregistration.css
+   (No removals, overrides lang)
+   ========================================================= */
+
+/* 1) Force exact font everywhere inside the registration page */
+.p1r-page,
+.p1r-page *{
+  font-family: "Plus Jakarta Sans","Inter",-apple-system,BlinkMacSystemFont,sans-serif !important;
+}
+
+/* 2) Force the header title/subtitle to match Overview exactly
+      (kahit hindi .p1r-h1/.p1r-sub ang ginamit mo sa JSX/HTML) */
+.p1r-top h1,
+.p1r-top .p1r-h1,
+.p1r-top [data-title],
+.p1r-top .title{
+  font-size: 24px !important;
+  font-weight: 950 !important;
+  line-height: 1.1 !important;
+  background: linear-gradient(135deg, #0f172a 0%, #334155 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
+}
+
+.p1r-top p,
+.p1r-top .p1r-sub,
+.p1r-top [data-subtitle],
+.p1r-top .subtitle{
+  margin-top: 8px !important;
+  color: var(--p1-muted) !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
+  line-height: 1.45 !important;
+  max-width: 80ch !important;
+}
+
+/* 3) KPI labels/value/meta — match Overview typography rhythm */
+.p1r-stats .p1r-statLabel,
+.p1r-stats [data-kpi-label],
+.p1r-stats .kpi-label{
+  font-size: 12px !important;
+  letter-spacing: .08em !important;
+  text-transform: uppercase !important;
+  color: var(--p1-muted) !important;
+  font-weight: 900 !important;
+}
+
+.p1r-stats .p1r-statValue,
+.p1r-stats [data-kpi-value],
+.p1r-stats .kpi-value{
+  margin-top: 10px !important;
+  font-size: 30px !important;
+  font-weight: 950 !important;
+  color: var(--p1-text) !important;
+  line-height: 1 !important;
+}
+
+.p1r-stats .p1r-statMeta,
+.p1r-stats [data-kpi-meta],
+.p1r-stats .kpi-meta{
+  margin-top: 10px !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  color: var(--p1-muted) !important;
+}
+
+/* 4) Table/inputs/selects — match Overview sizes/weights */
+.p1r-search input,
+.p1r-filter select,
+.p1r-sel,
+.p1r-table tbody td,
+.p1m2-row input,
+.p1m2-row select,
+.p1m2-row textarea{
+  font-size: 13px !important;
+  font-weight: 800 !important;
+}
+
+/* 5) Table headers — match Overview (caps + tracking) */
+.p1r-table thead th{
+  font-size: 11px !important;
+  letter-spacing: .12em !important;
+  text-transform: uppercase !important;
+  font-weight: 950 !important;
+  color: var(--p1-muted) !important;
+}
+
+/* 6) Pills/chips — match Overview */
+.p1r-pill,
+.p1m2-chip{
+  font-size: 11px !important;
+  font-weight: 950 !important;
+  letter-spacing: .06em !important;
+  text-transform: uppercase !important;
+}
