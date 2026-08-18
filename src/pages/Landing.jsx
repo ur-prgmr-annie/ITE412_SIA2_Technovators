@@ -249,60 +249,6 @@ export default function Landing() {
             </div>
           </section>
 
-<footer className="footer footer--match-header">
-  <div className="footer-inner footer-inner--match-header">
-    <div className="footer-col left">
-      <div className="footer-brand">
-        <div className="footer-logoBox">
-          <img src={logo} alt="ANIMIS Logo" />
-        </div>
-        <div className="footer-brandText">
-          <div className="footer-brandName">ANIMIS</div>
-          <div className="footer-brandSub">Municipal Agriculture Office</div>
-        </div>
-      </div>
-
-      <div className="footer-blockTitle">Contact Information</div>
-      <div className="footer-links">
-        <a href="#privacy">Privacy Policy</a>
-      </div>
-    </div>
-
-    <div className="footer-col mid">
-      <div className="footer-blockTitle">SYSTEM MODULES</div>
-      <ul className="footer-list footer-list--modules">
-        <li><a href="#registration">Animal & Farm Registration</a></li>
-        <li><a href="#health">Health Services Monitoring</a></li>
-        <li><a href="#breeding">Breeding Management</a></li>
-        <li><a href="#surveillance">Disease Surveillance</a></li>
-        <li><a href="#inventory">Vaccine & Supply Inventory</a></li>
-        <li><a href="#gis">GIS + Cold Chain Monitoring</a></li>
-        <li><a href="#reports">Reports & Analytics</a></li>
-        <li><a href="#roles">User Roles (Admin/Field/Inventory)</a></li>
-        <li><a href="#audit">Audit Logs</a></li>
-        <li><a href="#support">Support</a></li>
-      </ul>
-    </div>
-
-    <div className="footer-col right">
-      <div className="footer-subscribe">
-        <input className="footer-input" placeholder="Email address" />
-        <button className="footer-subBtn">SUBSCRIBE</button>
-      </div>
-
-      <div className="footer-social">
-        <button className="soc" aria-label="Facebook">f</button>
-        <button className="soc" aria-label="Twitter">t</button>
-        <button className="soc" aria-label="Email">@</button>
-        <button className="soc" aria-label="YouTube">▶</button>
-      </div>
-    </div>
-  </div>
-
-  <div className="footer-bottom footer-bottom--match-header">
-    Copyright © 2026
-  </div>
-</footer>
 
         </main>
       </div>

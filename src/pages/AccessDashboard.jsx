@@ -1,4 +1,3 @@
-// src/pages/AccessDashboard.jsx
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/accessDashboard.css";
@@ -7,20 +6,7 @@ import { auth } from "../services/firebase";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { getCurrentUserRoleAndStatus } from "../services/authService";
 import { getRolePermissions } from "../services/adminRolesService";
-import { 
-  X, 
-  LogOut, 
-  ShieldCheck, 
-  MapPin, 
-  Database, 
-  BarChart3, 
-  Users, 
-  FileText, 
-  Headphones, 
-  WifiOff,
-  Globe,
-  CheckCircle2
-} from "lucide-react";
+import { X, LogOut } from "lucide-react";
 
 const PROGRAMS = [
   {
@@ -30,6 +16,14 @@ const PROGRAMS = [
     title: "Animal Health Protection Program",
     icon: "🛡️",
     subtitle: "Registration • Health Services • Inventory • Cold Chain • GIS • Reports",
+    modules: [
+      "Animal & Farm Registration",
+      "Animal Health Services Monitoring",
+      "Vaccine & Supply Inventory Management",
+      "IoT Cold Chain Monitoring",
+      "GIS Mapping",
+      "Reporting & Analytics",
+    ],
     route: "/program/animal-health-protection",
     rolesAllowed: ["field_officer", "inventory_officer", "admin"],
   },
@@ -40,6 +34,13 @@ const PROGRAMS = [
     title: "Animal Breeding Program",
     icon: "🧬",
     subtitle: "Breeding workflow and performance outcomes",
+    modules: [
+      "Estrus Synchronization Scheduling & Monitoring",
+      "Artificial Insemination Record Management",
+      "Pregnancy Check & Outcome Tracking",
+      "Breeding Performance Monitoring",
+      "Reporting & Analytics (Breeding success & conception rate)",
+    ],
     route: "/program/animal-breeding",
     rolesAllowed: ["field_officer", "admin"],
   },
@@ -50,6 +51,13 @@ const PROGRAMS = [
     title: "Animal Health Care Program",
     icon: "🩺",
     subtitle: "Disease surveillance, hotspot mapping, and trend reports",
+    modules: [
+      "Disease Surveillance (ASF / Bird Flu)",
+      "Suspected & Confirmed Case Monitoring",
+      "Status Tracking (reported → investigated → closed)",
+      "Reporting & Analytics (monthly/annual incidence trends)",
+      "GIS Mapping (disease hotspots)",
+    ],
     route: "/program/animal-health-care",
     rolesAllowed: ["field_officer", "admin"],
   },
@@ -60,17 +68,10 @@ const PROGRAMS = [
     title: "Records of All Programs",
     icon: "📚",
     subtitle: "Unified records, audit trail, and consolidated reporting",
+    modules: ["All program records overview", "Consolidated reports", "Audit logs and activity history", "Export / print summaries (if enabled)"],
     route: "/program/records-all",
     rolesAllowed: ["field_officer", "inventory_officer", "admin"],
   },
-];
-
-// Feature highlights shown below the programs
-const FEATURES = [
-  { icon: ShieldCheck, label: "Admin / Field / Inventory", description: "Permissions per module" },
-  { icon: FileText, label: "Audit Logs", description: "Traceable actions for encoding and inventory changes" },
-  { icon: WifiOff, label: "Offline-ready", description: "Field encoding even with weak connectivity" },
-  { icon: Globe, label: "GIS Visibility", description: "Coverage maps + hotspot identification for response" },
 ];
 
 function RoleBadge({ role }) {
@@ -116,16 +117,19 @@ export default function AccessDashboard() {
   const [loading, setLoading] = useState(true);
   const [role, setRole] = useState(null);
   const [status, setStatus] = useState(null);
-  const [rolePerms, setRolePerms] = useState(null);
-  const [warn, setWarn] = useState(null);
-  const [logoutOpen, setLogoutOpen] = useState(false);
-  const [busyLogout, setBusyLogout] = useState(false);
 
+  const [rolePerms, setRolePerms] = useState(null);
+
+  const [warn, setWarn] = useState(null);
   const showWarn = (msg) => {
     setWarn(msg);
     window.clearTimeout(showWarn._t);
     showWarn._t = window.setTimeout(() => setWarn(null), 2400);
   };
+
+  // ✅ Logout modal state
+  const [logoutOpen, setLogoutOpen] = useState(false);
+  const [busyLogout, setBusyLogout] = useState(false);
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (user) => {
@@ -204,6 +208,12 @@ export default function AccessDashboard() {
   if (loading) {
     return (
       <div className="ad-page">
+        <div className="bg-layer" />
+        <div className="grid-layer" />
+        <div className="blob a" aria-hidden />
+        <div className="blob b" aria-hidden />
+        <div className="blob c" aria-hidden />
+
         <div className="ad-shell">
           <div className="ad-loading">Loading dashboard…</div>
         </div>
@@ -213,6 +223,12 @@ export default function AccessDashboard() {
 
   return (
     <div className="ad-page">
+      <div className="bg-layer" />
+      <div className="grid-layer" />
+      <div className="blob a" aria-hidden />
+      <div className="blob b" aria-hidden />
+      <div className="blob c" aria-hidden />
+
       <div className="ad-shell">
         {/* Header */}
         <header className="ad-header">
@@ -220,98 +236,93 @@ export default function AccessDashboard() {
             <div className="ad-logo">
               <img src={logo} alt="ANIMIS Logo" />
             </div>
+
             <div className="ad-brand-text">
-              <div className="ad-kicker">MUNICIPAL AGRICULTURE OFFICE · NAUJAN</div>
+              <div className="ad-kicker">ACCESS DASHBOARD</div>
+              <div className="ad-sub">ANIMIS • Municipal Agriculturist Office of Naujan</div>
+
               <div className="ad-title-row">
-                <h1 className="ad-title">ANIMIS</h1>
+                <h1 className="ad-title">Choose Program to Manage</h1>
               </div>
-              <div className="ad-sub">Animal Health • Breeding • Surveillance • Inventory • GIS</div>
             </div>
           </div>
 
           <div className="ad-actions">
             <RoleBadge role={role} />
+
+            {/* ✅ CHANGED: Home -> Settings */}
             <button className="ad-btn ghost" onClick={() => navigate("/settings")} type="button">
               Settings
             </button>
+
+            {/* ✅ Logout now shows confirm modal */}
             <button className="ad-btn" onClick={() => setLogoutOpen(true)} type="button">
               Logout
             </button>
           </div>
         </header>
 
-        {/* System Status */}
-        <div className="ad-status-banner">
-          <span className="status-icon">🟢</span>
-          <span className="status-text">SYSTEM OPERATIONAL</span>
-          <span className="status-sub">• Access System</span>
-        </div>
+        {/* ✅ No hero background anymore */}
+        <main className="ad-main">
+          <div className="ad-plainLine">
+            <div className="ad-plainStatus">
+              Logged in • Status: <b className="ad-plainStrong">{status}</b>
+            </div>
+            <div className="ad-plainHelp">
+              Select a program below. Your access is based on your assigned role.
+            </div>
+          </div>
 
-        {/* Access Heading */}
-        <h2 className="ad-access-heading">Access System</h2>
+          <section className="ad-cards">
+            {allowedPrograms.map((p) => {
+              const enabled = isModuleEnabled(p.moduleKey);
 
-        {/* Program Cards - Simplified */}
-        <div className="ad-cards">
-          {allowedPrograms.map((p) => {
-            const enabled = isModuleEnabled(p.moduleKey);
-
-            return (
-              <div key={p.id} className={`ad-card ${enabled ? "" : "disabled"}`}>
-                <div className="ad-card-top">
-                  <div className="ad-icon">{p.icon}</div>
-                  <div className="ad-card-head">
-                    <div className="ad-code">{p.code}</div>
-                    <h3 className="ad-card-title">{p.title}</h3>
-                    <p className="ad-card-sub">{p.subtitle}</p>
-                    {!enabled && <div className="ad-disabledTag">Disabled by Admin</div>}
-                  </div>
-                </div>
-
-                <div className="ad-card-foot">
-                  <button
-                    className={`ad-open ${enabled ? "" : "is-disabled"}`}
-                    onClick={() => handleOpen(p)}
-                    type="button"
-                  >
-                    Open Program →
-                  </button>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Feature Highlights */}
-        <div className="ad-features">
-          <div className="ad-features-grid">
-            {FEATURES.map((feature, idx) => {
-              const Icon = feature.icon;
               return (
-                <div key={idx} className="ad-feature">
-                  <div className="ad-feature-icon">
-                    <Icon size={20} />
+                <div key={p.id} className={`ad-card ${enabled ? "" : "disabled"}`}>
+                  <div className="ad-card-top">
+                    <div className="ad-icon">{p.icon}</div>
+                    <div className="ad-card-head">
+                      <div className="ad-code">{p.code}</div>
+                      <h2 className="ad-card-title">{p.title}</h2>
+                      <p className="ad-card-sub">{p.subtitle}</p>
+
+                      {!enabled ? <div className="ad-disabledTag">Disabled by Admin</div> : null}
+                    </div>
                   </div>
-                  <div className="ad-feature-content">
-                    <div className="ad-feature-label">{feature.label}</div>
-                    <div className="ad-feature-desc">{feature.description}</div>
+
+                  <ul className="ad-list">
+                    {p.modules.map((m, idx) => (
+                      <li key={idx}>{m}</li>
+                    ))}
+                  </ul>
+
+                  <div className="ad-card-foot">
+                    <button
+                      className={`ad-open ${enabled ? "" : "is-disabled"}`}
+                      onClick={() => handleOpen(p)}
+                      type="button"
+                    >
+                      Open Program →
+                    </button>
                   </div>
                 </div>
               );
             })}
-          </div>
-        </div>
+          </section>
 
-        {/* Footer */}
+          <div className="ad-note">Tip: Program 4 “Records of All Programs” can become your consolidated reporting hub.</div>
+        </main>
+
         <footer className="ad-footer">
-          <div className="ad-footer-left">Copyright © 2026</div>
-          <div className="ad-footer-right">ANIMIS v1.0</div>
+          <div className="ad-footer-left">Municipal Agriculturist Office of Naujan • ANIMIS</div>
+          <div className="ad-footer-right">v1.0 • Forest Theme</div>
         </footer>
       </div>
 
       {/* Warning toast */}
-      {warn && <div className="ad-warnToast">⚠️ {warn}</div>}
+      {warn ? <div className="ad-warnToast">⚠️ {warn}</div> : null}
 
-      {/* Logout Modal */}
+      {/* ✅ Logout confirm modal (Auth-glass style) */}
       <Modal
         open={logoutOpen}
         title="Confirm Logout"
@@ -322,8 +333,9 @@ export default function AccessDashboard() {
           <div className="admIcon">
             <LogOut size={22} />
           </div>
+
           <p className="admMsg">Are you sure you want to logout?</p>
-          <p className="admHint">You'll need to sign in again to access ANIMIS.</p>
+          <p className="admHint">You’ll need to sign in again to access ANIMIS.</p>
 
           <div className="admActions">
             <button className="admBtn" onClick={() => setLogoutOpen(false)} disabled={busyLogout} type="button">
