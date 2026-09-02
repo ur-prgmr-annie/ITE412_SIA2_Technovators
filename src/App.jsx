@@ -16,14 +16,15 @@ import AdminRoles from "./pages/admin/AdminRoles";
 import AdminSettings from "./pages/admin/AdminSettings";
 import AdminReports from "./pages/admin/AdminReports";
 import AdminOps from "./pages/admin/AdminOps";
-import AdminBilling from "./pages/admin/AdminBilling"; // ✅ NEW: Billing Services
+import AdminBilling from "./pages/admin/AdminBilling";
 
-/** ✅ NEW: General Settings page (for non-admin dashboard settings) */
+/** ✅ General Settings */
 import Settings from "./pages/Settings";
 
 /** ✅ Program 1 (Animal Health Protection) */
 import Program1Layout from "./pages/program1/Program1Layout";
 import P1Overview from "./pages/program1/P1Overview";
+import P1Farmers from "./pages/program1/P1Farmers";                 // ✅ NEW: Farmer Registration component
 import P1Registration from "./pages/program1/P1Registration";
 import P1Services from "./pages/program1/P1Services";
 import P1Inventory from "./pages/program1/P1Inventory";
@@ -61,7 +62,7 @@ export default function App() {
           {/* Optional: /admin shortcut */}
           <Route path="/admin" element={<Navigate to="/admin/panel" replace />} />
 
-          {/* ✅ NEW: Settings (used by AccessDashboard "Settings" button) */}
+          {/* Settings */}
           <Route
             path="/settings"
             element={
@@ -74,7 +75,7 @@ export default function App() {
             }
           />
 
-          {/* ✅ Admin Panel */}
+          {/* Admin Panel */}
           <Route
             path="/admin/panel"
             element={
@@ -87,7 +88,7 @@ export default function App() {
             <Route path="overview" element={<AdminOverview />} />
             <Route path="users" element={<AdminUsers />} />
             <Route path="roles" element={<AdminRoles />} />
-            <Route path="billing" element={<AdminBilling />} /> {/* ✅ NEW: Billing Services Route */}
+            <Route path="billing" element={<AdminBilling />} />
             <Route path="settings" element={<AdminSettings />} />
             <Route path="reports" element={<AdminReports />} />
             <Route path="ops" element={<AdminOps />} />
@@ -120,6 +121,7 @@ export default function App() {
           >
             <Route index element={<Navigate to="overview" replace />} />
             <Route path="overview" element={<P1Overview />} />
+            <Route path="farmers" element={<P1Farmers />} />          {/* ✅ NEW: Farmer Registration route */}
             <Route path="registration" element={<P1Registration />} />
             <Route path="services" element={<P1Services />} />
             <Route path="inventory" element={<P1Inventory />} />
@@ -128,7 +130,7 @@ export default function App() {
             <Route path="reports" element={<P1Reports />} />
           </Route>
 
-          {/* ✅ Program 2 */}
+          {/* Program 2 */}
           <Route
             path="/program/animal-breeding"
             element={
@@ -149,7 +151,7 @@ export default function App() {
             <Route path="reports" element={<P2Reports />} />
           </Route>
 
-          {/* ✅ Program 3 */}
+          {/* Program 3 */}
           <Route
             path="/program/animal-health-care"
             element={

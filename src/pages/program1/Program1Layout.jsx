@@ -26,6 +26,7 @@ import {
   AlertTriangle,
   CheckCircle2,
   PawPrint,
+  UserPlus, // ✅ New icon for Farmer Registration
 } from "lucide-react";
 
 import { auth, db, rtdb } from "../../services/firebase";
@@ -46,8 +47,10 @@ import {
 } from "firebase/firestore";
 import { ref, onValue, off } from "firebase/database";
 
+// ✅ Updated NAV with Farmer Registration after Dashboard
 const NAV = [
   { to: "overview", label: "Dashboard", icon: Home },
+  { to: "farmers", label: "Farmer Registration", icon: UserPlus }, // ✅ New item
   { to: "registration", label: "Animal Registration", icon: Database },
   { to: "services", label: "Health Services", icon: Stethoscope },
   { to: "inventory", label: "Vaccine Inventory", icon: Boxes },
@@ -449,6 +452,7 @@ export default function Program1Layout() {
     }
   };
 
+  // ✅ Updated filtering: inventory_officer cannot see Farmer Registration
   const allowedNav = useMemo(() => {
     if (role === "inventory_officer") {
       return NAV.filter((x) => ["overview", "inventory", "cold-chain", "reports"].includes(x.to));
@@ -667,7 +671,7 @@ export default function Program1Layout() {
           </div>
         </header>
 
-        {/* ✅ UPDATED: Content with notification context */}
+        {/* Content with notification context */}
         <div className="pl-content-main-wide">
           <Outlet context={{ addNotification }} />
         </div>
