@@ -14,6 +14,8 @@ import {
   ShieldAlert,
   DoorOpen,
   PlugZap,
+  Plus,
+  X,
 } from "lucide-react";
 
 import {
@@ -21,6 +23,7 @@ import {
   subscribeReadings,
   updateDevice,
   addReading,
+  addDevice,
 } from "../../services/program1ColdChainService";
 
 function clamp(n, min, max) {
@@ -39,6 +42,14 @@ function formatDateTime(value) {
   return isNaN(date.getTime()) ? "—" : date.toLocaleString();
 }
 
+const EMPTY_DEVICE_FORM = {
+  name: "",
+  deviceId: "",
+  location: "",
+  minTemp: "2",
+  maxTemp: "8",
+};
+
 export default function P1ColdChain() {
   const [activeTab, setActiveTab] = useState("dashboard");
   const [devices, setDevices] = useState([]);
@@ -51,6 +62,11 @@ export default function P1ColdChain() {
 
   const [historyPage, setHistoryPage] = useState(1);
   const HISTORY_PAGE_SIZE = 5;
+
+  // ---- Add Device modal state ----
+  const [showAddDevice, setShowAddDevice] = useState(false);
+  const [newDevice, setNewDevice] = useState(EMPTY_DEVICE_FORM);
+  const [savingDevice, setSavingDevice] = useState(false);
 
   useEffect(() => {
     const unsub = subscribeDevices(
@@ -220,6 +236,54 @@ export default function P1ColdChain() {
     window.location.reload();
   };
 
+  const openAddDevice = () => {
+    setErr("");
+    setNewDevice(EMPTY_DEVICE_FORM);
+    setShowAddDevice(true);
+  };
+
+  const closeAddDevice = () => {
+    if (savingDevice) return;
+    setShowAddDevice(false);
+  };
+
+  const handleAddDevice = async () => {
+    const name = newDevice.name.trim();
+    const deviceId = newDevice.deviceId.trim();
+    const location = newDevice.location.trim();
+    const minTemp = Number(newDevice.minTemp);
+    const maxTemp = Number(newDevice.maxTemp);
+
+    if (!name) return setErr("Device name is required.");
+    if (!deviceId) return setErr("Device ID is required.");
+    if (Number.isNaN(minTemp) || Number.isNaN(maxTemp))
+      return setErr("Min and max temperature must be valid numbers.");
+    if (minTemp >= maxTemp)
+      return setErr("Min temperature must be lower than max temperature.");
+
+    const duplicate = devices.some(
+      (d) => String(d.deviceId || "").toLowerCase() === deviceId.toLowerCase()
+    );
+    if (duplicate) return setErr(`Device ID "${deviceId}" is already registered.`);
+
+    setSavingDevice(true);
+    setErr("");
+
+    try {
+      const created = await addDevice({ name, deviceId, location, minTemp, maxTemp });
+
+      // Auto-select the newly created device (if the service returns it).
+      if (created?.id) setSelectedId(created.id);
+
+      setNewDevice(EMPTY_DEVICE_FORM);
+      setShowAddDevice(false);
+    } catch (e) {
+      setErr(e?.message || "Failed to add device.");
+    } finally {
+      setSavingDevice(false);
+    }
+  };
+
   const pushReading = async () => {
     if (!selected) return setErr("Select a device first.");
 
@@ -315,6 +379,9 @@ export default function P1ColdChain() {
             <span className="p1c-liveDot" />
             Live
           </div>
+          <button className="p1c-addBtn" onClick={openAddDevice} type="button">
+            <Plus size={16} /> Add Device
+          </button>
           <button className="p1c-iconBtn" onClick={refresh} type="button" title="Refresh">
             <RefreshCcw size={18} />
           </button>
@@ -387,6 +454,9 @@ export default function P1ColdChain() {
               <div className="p1c-cardTitle">
                 <ThermometerSnowflake size={18} /> Devices
                 <span className="p1c-count">{devices.length}</span>
+                <button className="p1c-addMini" onClick={openAddDevice} type="button">
+                  <Plus size={14} /> New
+                </button>
               </div>
 
               <div className="p1c-list">
@@ -437,7 +507,11 @@ export default function P1ColdChain() {
                   );
                 })}
 
-                {devices.length === 0 && <div className="p1c-empty">No devices yet.</div>}
+                {devices.length === 0 && (
+                  <div className="p1c-empty">
+                    No devices yet. Click <b>Add Device</b> to register one.
+                  </div>
+                )}
               </div>
             </div>
 
@@ -758,7 +832,12 @@ export default function P1ColdChain() {
 
       {activeTab === "settings" && (
         <div className="p1c-card">
-          <div className="p1c-cardTitle">Sensor Configuration</div>
+          <div className="p1c-cardTitle">
+            Sensor Configuration
+            <button className="p1c-addMini" onClick={openAddDevice} type="button">
+              <Plus size={14} /> Add Device
+            </button>
+          </div>
 
           <div className="p1c-settings">
             {devices.map((u) => {
@@ -814,6 +893,120 @@ export default function P1ColdChain() {
                 </div>
               );
             })}
+
+            {!devices.length && (
+              <div className="p1c-empty">
+                No sensors registered yet. Click <b>Add Device</b> to start.
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* ---------- ADD DEVICE MODAL ---------- */}
+      {showAddDevice && (
+        <div
+          className="p1c-modalOverlay"
+          onMouseDown={(e) => {
+            if (e.target === e.currentTarget) closeAddDevice();
+          }}
+        >
+          <div className="p1c-modal" role="dialog" aria-modal="true">
+            <div className="p1c-modalHeader">
+              <div className="p1c-modalTitle">
+                <Plus size={18} /> Add Monitoring Device
+              </div>
+              <button
+                className="p1c-modalClose"
+                type="button"
+                onClick={closeAddDevice}
+                disabled={savingDevice}
+                aria-label="Close"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            <div className="p1c-modalBody">
+              <div className="p1c-field">
+                <label>Device Name</label>
+                <input
+                  value={newDevice.name}
+                  onChange={(e) =>
+                    setNewDevice((p) => ({ ...p, name: e.target.value }))
+                  }
+                  placeholder="e.g. Vaccine Fridge — RHU Main"
+                  autoFocus
+                />
+              </div>
+
+              <div className="p1c-field">
+                <label>Device ID / Hardware Serial</label>
+                <input
+                  value={newDevice.deviceId}
+                  onChange={(e) =>
+                    setNewDevice((p) => ({ ...p, deviceId: e.target.value }))
+                  }
+                  placeholder="e.g. CC-ESP32-002"
+                />
+              </div>
+
+              <div className="p1c-field">
+                <label>Location</label>
+                <input
+                  value={newDevice.location}
+                  onChange={(e) =>
+                    setNewDevice((p) => ({ ...p, location: e.target.value }))
+                  }
+                  placeholder="e.g. Barangay Health Center"
+                />
+              </div>
+
+              <div className="p1c-fieldRow">
+                <div className="p1c-field">
+                  <label>Min Temp (°C)</label>
+                  <input
+                    type="number"
+                    step="0.1"
+                    value={newDevice.minTemp}
+                    onChange={(e) =>
+                      setNewDevice((p) => ({ ...p, minTemp: e.target.value }))
+                    }
+                  />
+                </div>
+
+                <div className="p1c-field">
+                  <label>Max Temp (°C)</label>
+                  <input
+                    type="number"
+                    step="0.1"
+                    value={newDevice.maxTemp}
+                    onChange={(e) =>
+                      setNewDevice((p) => ({ ...p, maxTemp: e.target.value }))
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="p1c-modalFooter">
+              <button
+                className="p1c-btnOutline"
+                type="button"
+                onClick={closeAddDevice}
+                disabled={savingDevice}
+              >
+                Cancel
+              </button>
+              <button
+                className="p1c-btn"
+                type="button"
+                onClick={handleAddDevice}
+                disabled={savingDevice}
+              >
+                {savingDevice ? "Saving…" : "Save Device"}
+              </button>
+            </div>
           </div>
         </div>
       )}
