@@ -9,7 +9,7 @@ Project Title: ANIMIS: An Integrated Animal Health Services Support System for t
 Team Members & Roles
 
 1. UMANDAL, MARY JANE M. — Project Lead
-2. LAGRANA, VINCENT V. — Documentation
+2. LAGRANA, VINCENT V. — Documentation/Technical Writer
 3. ALOJADO, JHON EDELBERT D. — Diagram Designer
 4. GANDIA, TRECIA ANNE M. — Presenter
 
