@@ -10,7 +10,7 @@ Team Members & Roles
 
 1. UMANDAL, MARY JANE M. — Project Leader
 2. LAGRANA, VINCENT V. — Documentation/Technical Writer
-3. ALOJADO, JHON EDELBERT D. — Diagram Designer
+3. ALOJADO, JHON EDELBERT D. — Diagram Designer/Context Diagram
 4. GANDIA, TRECIA ANNE M. — Presenter
 
 Project Summary
